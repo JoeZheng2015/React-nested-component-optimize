@@ -12,7 +12,7 @@ class PureSeat extends React.Component {
         return (
             <li className="Seat"
                 onClick={e => selectSeat(seat.id)}
-                style={{background: seat.color}}></li>
+                style={{background: seat.selected ? seat.selectedColor : seat.originColor}}></li>
         )
     }
 }
@@ -21,11 +21,15 @@ const Seat = connect(makeMapStateToProps)(PureSeat)
 class Seats extends React.Component {
     selectSeat = id => {
         console.time('update multipleConnect')
-        this.props.actions.selectSeatByMultipleConnect(id)
+        this.props.actions.selectSeat(id)
     }
 
     componentDidMount() {
         console.timeEnd('initial multipleConnect')
+    }
+
+    componentWillUnmount() {
+        this.props.actions.resetSeat()
     }
 
     render() {

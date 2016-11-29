@@ -1,8 +1,12 @@
 import { createSelector } from 'reselect'
 
+const getSeats = state => state.seats
+const getSeatIds = state => state.seatIds
+const getSelectedSeatIds = state => state.selectedSeatIds
+
 export const singleConnectSelector = createSelector(
-    state => state.singleConnect.seats,
-    state => state.singleConnect.selectedSeatIds,
+    getSeats,
+    getSelectedSeatIds,
     (seats, selectedSeatIds) => {
         return {
             seats,
@@ -13,7 +17,7 @@ export const singleConnectSelector = createSelector(
 
 
 export const multipleConnectSelector = createSelector(
-    state => state.multipleConnect.seatIds,
+    getSeatIds,
     (seatIds) => {
         return {
             seatIds,
@@ -22,7 +26,7 @@ export const multipleConnectSelector = createSelector(
 )
 
 const getSeat = (state, id) => {
-    return state.multipleConnect.seats[id]
+    return state.seats[id]
 }
 
 const makeGetSeat = () => {
@@ -44,8 +48,8 @@ export const makeMapStateToProps = (state, initialProps) => {
 }
 
 export const smartSeatSelector = createSelector(
-    state => state.singleConnect.seats,
-    state => state.singleConnect.selectedSeatIds,
+    getSeats,
+    getSelectedSeatIds,
     (seats, selectedSeatIds) => {
         return {
             seats,
@@ -55,10 +59,12 @@ export const smartSeatSelector = createSelector(
 )
 
 export const canvasSeatSelector = createSelector(
-    state => state.canvasSeat.seats,
-    (seats) => {
+    getSeats,
+    getSelectedSeatIds,
+    (seats, selectedSeatIds) => {
         return {
             seats,
+            selectedSeatIds,
         }
     }
 )

@@ -1,14 +1,11 @@
 import React from 'react'
 import connect from '../utils/connect'
 import {canvasSeatSelector} from '../selectors'
-import {originColor, selectedColor} from '../utils/constants'
 
 const defaultSettings = {
     width: 20,
     height: 20,
     margin: 2,
-    color: originColor,
-    selectedColor,
 }
 
 class CanvasSeat extends React.Component {
@@ -93,7 +90,10 @@ class CanvasSeat extends React.Component {
                 ...this.settings,
                 ...seats[i],
             }
-            this.drawSeat(seat)
+            this.drawSeat({
+                ...seat,
+                color: seat.selected ? seat.selectedColor : seat.originColor,
+            })
             this.seatsMap.push(seat)
         }
     }
@@ -105,12 +105,12 @@ class CanvasSeat extends React.Component {
     }
     updateSeat(seat, isLockSeat) {
         const {ctx} = this
-        const {x, y, width, height, selectedColor, color} = seat
+        const {x, y, width, height, selectedColor, originColor} = seat
 
         ctx.clearRect(x, y, width, height)
         this.drawSeat({
             ...seat,
-            color: isLockSeat ? selectedColor : color,
+            color: isLockSeat ? selectedColor : originColor,
         })
     }
     calculateCoordinate(row, column) {
@@ -143,14 +143,20 @@ class CanvasSeatContainer extends React.Component {
     shouldComponentUpdate(nextProps) {
         return nextProps.seats.length !== this.props.seats.length
     }
+
     componentDidMount() {
         console.timeEnd('initial canvasSeat')
     }
+
+    componentWillUnmount() {
+        this.props.actions.resetSeat()
+    }
+
     render() {
         console.time('initial canvasSeat')
         const {seats} = this.props
 
-        return <CanvasSeat seats={seats} handleClick={this.props.actions.selectSeatByCanvasSeat}></CanvasSeat>
+        return <CanvasSeat seats={seats} handleClick={this.props.actions.selectSeat}></CanvasSeat>
     }
 }
 export default connect(canvasSeatSelector)(CanvasSeatContainer)

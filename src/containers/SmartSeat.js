@@ -1,14 +1,13 @@
 import React from 'react'
 import connect from '../utils/connect'
 import {smartSeatSelector} from '../selectors'
-import {selectedColor} from '../utils/constants'
 
 class Seat extends React.Component {
     constructor(args) {
         super(args)
-        const {selected} = this.props
+
         this.state = {
-            selected,
+            selected: this.props.seat.selected,
         }
     }
 
@@ -34,7 +33,7 @@ class Seat extends React.Component {
         return (
             <li className="Seat"
                 onClick={e => this.onClick(seat.id)}
-                style={{background: selected ? selectedColor : seat.color}}></li>
+                style={{background: selected ? seat.selectedColor : seat.originColor}}></li>
         )
     }
 }
@@ -48,9 +47,13 @@ class Seats extends React.Component {
         return nextProps.seats.length !== this.props.seats.length
     }
 
+    componentWillUnmount() {
+        this.props.actions.resetSeat()
+    }
+
     render() {
         console.time('initial smartSeat')
-        const {seats, selectedSeatIds} = this.props
+        const {seats} = this.props
 
         return (
             <ul className="Seats SingleConnect">
@@ -58,8 +61,7 @@ class Seats extends React.Component {
                     seats.map(seat => <Seat
                         key={seat.id}
                         seat={seat}
-                        selected={selectedSeatIds.indexOf(seat.id) !== -1}
-                        selectSeat={this.props.actions.selectSeatBySmartSeat}
+                        selectSeat={this.props.actions.selectSeat}
                         />
                     )
                 }

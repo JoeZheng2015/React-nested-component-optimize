@@ -11,7 +11,7 @@ class Seat extends React.Component {
         const {seat} = this.props
 
         return nextProps.seat.id !== seat.id ||
-            nextProps.seat.color !== seat.color
+            nextProps.seat.selected !== seat.selected
     }
 
     render() {
@@ -20,7 +20,7 @@ class Seat extends React.Component {
         return (
             <li className="Seat"
                 onClick={e => selectSeat(seat.id)}
-                style={{background: seat.color}}></li>
+                style={{background: seat.selected ? seat.selectedColor : seat.originColor}}></li>
         )
     }
 }
@@ -28,11 +28,15 @@ class Seat extends React.Component {
 class Seats extends React.Component {
     selectSeat = id => {
         console.time('update singleConnect')
-        this.props.actions.selectSeatBySingleConnect(id)
+        this.props.actions.selectSeat(id)
     }
 
     componentDidMount() {
         console.timeEnd('initial singleConnect')
+    }
+
+    componentWillUnmount() {
+        this.props.actions.resetSeat()
     }
 
     render() {
