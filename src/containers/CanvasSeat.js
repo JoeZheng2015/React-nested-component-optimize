@@ -28,6 +28,7 @@ class CanvasSeat extends React.Component {
         this.draw(seats)
     }
     onCanvasClick = e => {
+        console.time('update canvasSeat')
         const {pageX, pageY} = e
         const canvasOffset = this.getOffset(this.canvas)
         const pointX = pageX - canvasOffset.left
@@ -38,6 +39,7 @@ class CanvasSeat extends React.Component {
             this.props.handleClick(hitedSeat.id)
                 .then(isLockSeat => {
                     this.updateSeat(hitedSeat, isLockSeat)
+                    console.timeEnd('update canvasSeat')
                 })
         }
     }
@@ -138,8 +140,14 @@ class CanvasSeat extends React.Component {
 
 
 class CanvasSeatContainer extends React.Component {
-
+    shouldComponentUpdate(nextProps) {
+        return nextProps.seats.length !== this.props.seats.length
+    }
+    componentDidMount() {
+        console.timeEnd('initial canvasSeat')
+    }
     render() {
+        console.time('initial canvasSeat')
         const {seats} = this.props
 
         return <CanvasSeat seats={seats} handleClick={this.props.actions.selectSeatByCanvasSeat}></CanvasSeat>

@@ -91,7 +91,7 @@ export function selectSeatByCanvasSeat(id) {
                     seats: nextSeats,
                     selectedSeatIds: nextSelectedSeatIds,
                 })
-                console.log(isLockSeat)
+
                 return isLockSeat
             }
         })

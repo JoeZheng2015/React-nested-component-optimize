@@ -55,12 +55,10 @@ export const smartSeatSelector = createSelector(
 )
 
 export const canvasSeatSelector = createSelector(
-    state => state.singleConnect.seats,
-    state => state.singleConnect.selectedSeatIds,
-    (seats, selectedSeatIds) => {
+    state => state.canvasSeat.seats,
+    (seats) => {
         return {
             seats,
-            selectedSeatIds,
         }
     }
 )
