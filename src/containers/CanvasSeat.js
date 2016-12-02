@@ -21,27 +21,34 @@ class CanvasSeat extends React.Component {
             settings,
         }
         this.seatsMap = []
+        this.seatCoordinate = {}
 
         this.draw(seats)
     }
+
     onCanvasClick = e => {
-        console.time('update canvasSeat')
         const {pageX, pageY} = e
         const canvasOffset = this.getOffset(this.canvas)
         const pointX = pageX - canvasOffset.left
         const pointY = pageY - canvasOffset.top
 
-        const hitedSeat = this.hitDetect({pointX, pointY})
+        const time1 = performance.now()
+        const index = this.findSeat({pointX, pointY})
+        console.log('findSeat', performance.now() - time1)
+
+        const time2 = performance.now()
+        const hitedSeat = this.lookSeat({pointX, pointY})
+        console.log('lookSeat', performance.now() - time2)
+
         if (hitedSeat) {
             this.props.handleClick(hitedSeat.id)
                 .then(isLockSeat => {
                     this.updateSeat(hitedSeat, isLockSeat)
-                    console.timeEnd('update canvasSeat')
                 })
         }
     }
 
-    hitDetect({pointX, pointY}) {
+    findSeat({pointX, pointY}) {
         const {seatsMap} = this
 
         for (let i = 0; i < seatsMap.length; i++) {
@@ -61,6 +68,16 @@ class CanvasSeat extends React.Component {
                 pointY <= y + height + margin
         }
     }
+
+    lookSeat({pointX, pointY}) {
+        const {settings, seatCoordinate} = this
+        const {width, height, margin} = settings
+
+        pointX = Math.floor(pointX / (width + margin))
+        pointY = Math.floor(pointY / (height + margin))
+
+        return seatCoordinate[`${pointX},${pointY}`]
+    }
     getOffset(el) {
         let top = -el.offsetTop
         let left = -el.offsetLeft
@@ -77,8 +94,8 @@ class CanvasSeat extends React.Component {
     }
     draw(seats) {
         this.setCanvasSize(seats)
-
         const {columnNumber} = this
+        const {width, height, margin} = this.settings
 
         for (let i = 0; i < seats.length; i++) {
             const row = Math.floor(i / columnNumber) + 1
@@ -95,6 +112,9 @@ class CanvasSeat extends React.Component {
                 color: seat.selected ? seat.selectedColor : seat.originColor,
             })
             this.seatsMap.push(seat)
+            const pointX = Math.floor(x / (width + margin))
+            const pointY = Math.floor(y / (height + margin))
+            this.seatCoordinate[`${pointX},${pointY}`] = seat
         }
     }
     drawSeat({x, y, width, height, color}) {
