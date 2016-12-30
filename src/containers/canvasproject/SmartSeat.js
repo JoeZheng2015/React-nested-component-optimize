@@ -1,6 +1,6 @@
 import React from 'react'
-import connect from '../utils/connect'
-import {smartSeatSelector} from '../selectors'
+import connect from '../../utils/connect'
+import {smartSeatSelector} from '../../selectors'
 
 class Seat extends React.Component {
     constructor(args) {
@@ -12,11 +12,11 @@ class Seat extends React.Component {
     }
 
     componentDidUpdate() {
-        console.timeEnd('update smartSeat')
+        this.props.updateCallback(this.updateTime)
     }
 
     onClick = id => {
-        console.time('update smartSeat')
+        this.updateTime = performance.now()
 
         this.props.selectSeat(id)
             .then(selectSuccess => {
@@ -39,20 +39,33 @@ class Seat extends React.Component {
 }
 
 class Seats extends React.Component {
-    componentDidMount() {
-        console.timeEnd('initial smartSeat')
+    updateId = 0
+    componentWillMount() {
+        this.begin = performance.now()
     }
 
-    shouldComponentUpdate(nextProps) {
-        return nextProps.seats.length !== this.props.seats.length
+    componentDidMount() {
+        const elapse = performance.now() - this.begin
+        this.props.actions.setInitTime(elapse)
     }
 
     componentWillUnmount() {
         this.props.actions.resetSeat()
     }
 
+    updateCallback = (updateTime) => {
+        const elapse = performance.now() - updateTime
+        this.props.actions.setUpdateTime({
+            elapse,
+            updateId: ++this.updateId,
+        })
+    }
+
+    shouldComponentUpdate(nextProps) {
+        return nextProps.seats.length !== this.props.seats.length
+    }
+
     render() {
-        console.time('initial smartSeat')
         const {seats} = this.props
 
         return (
@@ -62,6 +75,7 @@ class Seats extends React.Component {
                         key={seat.id}
                         seat={seat}
                         selectSeat={this.props.actions.selectSeat}
+                        updateCallback={this.updateCallback}
                         />
                     )
                 }

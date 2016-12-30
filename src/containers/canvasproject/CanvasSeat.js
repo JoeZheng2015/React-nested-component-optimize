@@ -1,6 +1,6 @@
 import React from 'react'
-import connect from '../utils/connect'
-import {canvasSeatSelector} from '../selectors'
+import connect from '../../utils/connect'
+import {canvasSeatSelector} from '../../selectors'
 
 const defaultSettings = {
     width: 20,
@@ -27,6 +27,8 @@ class CanvasSeat extends React.Component {
     }
 
     onCanvasClick = e => {
+        this.updateTime = performance.now()
+
         const {pageX, pageY} = e
         const canvasOffset = this.getOffset(this.canvas)
         const pointX = pageX - canvasOffset.left
@@ -44,6 +46,7 @@ class CanvasSeat extends React.Component {
             this.props.handleClick(hitedSeat.id)
                 .then(isLockSeat => {
                     this.updateSeat(hitedSeat, isLockSeat)
+                    this.props.updateCallback(performance.now())
                 })
         }
     }
@@ -160,23 +163,39 @@ class CanvasSeat extends React.Component {
 
 
 class CanvasSeatContainer extends React.Component {
+    updateId = 0
     shouldComponentUpdate(nextProps) {
         return nextProps.seats.length !== this.props.seats.length
     }
 
+    componentWillMount() {
+        this.begin = performance.now()
+    }
+
     componentDidMount() {
-        console.timeEnd('initial canvasSeat')
+        const elapse = performance.now() - this.begin
+        this.props.actions.setInitTime(elapse)
     }
 
     componentWillUnmount() {
         this.props.actions.resetSeat()
     }
 
+    updateCallback = (updateTime) => {
+        const elapse = performance.now() - updateTime
+        this.props.actions.setUpdateTime({
+            elapse,
+            updateId: ++this.updateId,
+        })
+    }
+
     render() {
-        console.time('initial canvasSeat')
         const {seats} = this.props
 
-        return <CanvasSeat seats={seats} handleClick={this.props.actions.selectSeat}></CanvasSeat>
+        return <CanvasSeat
+            seats={seats}
+            updateCallback={this.updateCallback}
+            handleClick={this.props.actions.selectSeat} />
     }
 }
 export default connect(canvasSeatSelector)(CanvasSeatContainer)

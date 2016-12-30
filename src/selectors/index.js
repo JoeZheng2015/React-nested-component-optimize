@@ -15,7 +15,6 @@ export const singleConnectSelector = createSelector(
     }
 )
 
-
 export const multipleConnectSelector = createSelector(
     getSeatIds,
     (seatIds) => {
@@ -65,6 +64,19 @@ export const canvasSeatSelector = createSelector(
         return {
             seats,
             selectedSeatIds,
+        }
+    }
+)
+
+export const canvasProject = createSelector(
+    state => state.loadTime,
+    state => state.updateTime,
+    state => state.updateId,
+    (loadTime, updateTime, updateId) => {
+        return {
+            loadTime,
+            updateTime,
+            updateId,
         }
     }
 )

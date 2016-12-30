@@ -1,10 +1,10 @@
 import React from 'react'
-import connect from '../utils/connect'
-import {multipleConnectSelector, makeMapStateToProps} from '../selectors'
+import connect from '../../utils/connect'
+import {multipleConnectSelector, makeMapStateToProps} from '../../selectors'
 
 class PureSeat extends React.Component {
     componentDidUpdate() {
-        console.timeEnd('update multipleConnect')
+        this.props.updateCallback()
     }
     render() {
         const {seat, selectSeat} = this.props
@@ -19,21 +19,34 @@ class PureSeat extends React.Component {
 const Seat = connect(makeMapStateToProps)(PureSeat)
 
 class Seats extends React.Component {
+    updateId = 0
     selectSeat = id => {
-        console.time('update multipleConnect')
+        this.updateTime = performance.now()
         this.props.actions.selectSeat(id)
     }
 
+    componentWillMount() {
+        this.begin = performance.now()
+    }
+
     componentDidMount() {
-        console.timeEnd('initial multipleConnect')
+        const elapse = performance.now() - this.begin
+        this.props.actions.setInitTime(elapse)
     }
 
     componentWillUnmount() {
         this.props.actions.resetSeat()
     }
 
+    updateCallback = () => {
+        const elapse = performance.now() - this.updateTime
+        this.props.actions.setUpdateTime({
+            elapse,
+            updateId: ++this.updateId,
+        })
+    }
+
     render() {
-        console.time('initial multipleConnect')
         const {seatIds} = this.props
 
         return (
@@ -43,6 +56,7 @@ class Seats extends React.Component {
                         key={id}
                         id={id}
                         selectSeat={this.selectSeat}
+                        updateCallback={this.updateCallback}
                         />
                     )
                 }

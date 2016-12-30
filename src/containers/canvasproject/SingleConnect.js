@@ -1,10 +1,10 @@
 import React from 'react'
-import connect from '../utils/connect'
-import {singleConnectSelector} from '../selectors'
+import connect from '../../utils/connect'
+import {singleConnectSelector} from '../../selectors'
 
 class Seat extends React.Component {
     componentDidUpdate() {
-        console.timeEnd('update singleConnect')
+        this.props.updateCallback()
     }
     
     shouldComponentUpdate(nextProps) {
@@ -26,21 +26,34 @@ class Seat extends React.Component {
 }
 
 class Seats extends React.Component {
+    updateId = 0
     selectSeat = id => {
-        console.time('update singleConnect')
+        this.updateTime = performance.now()
         this.props.actions.selectSeat(id)
     }
 
+    componentWillMount() {
+        this.begin = performance.now()
+    }
+
     componentDidMount() {
-        console.timeEnd('initial singleConnect')
+        const elapse = performance.now() - this.begin
+        this.props.actions.setInitTime(elapse)
     }
 
     componentWillUnmount() {
         this.props.actions.resetSeat()
     }
 
+    updateCallback = () => {
+        const elapse = performance.now() - this.updateTime
+        this.props.actions.setUpdateTime({
+            elapse,
+            updateId: ++this.updateId,
+        })
+    }
+
     render() {
-        console.time('initial singleConnect')
         const {seats} = this.props
 
         return (
@@ -50,6 +63,7 @@ class Seats extends React.Component {
                         key={seat.id}
                         seat={seat}
                         selectSeat={this.selectSeat}
+                        updateCallback={this.updateCallback}
                         />
                     )
                 }

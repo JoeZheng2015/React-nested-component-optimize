@@ -59,4 +59,19 @@ function computeNextState(seats, selectedSeatIds, id) {
     }
 }
 
+export function setInitTime(time) {
+    return {
+        type: 'SET_INIT_TIME',
+        time,
+    }
+}
+
+export function setUpdateTime(updateInfo) {
+    return {
+        type: 'SET_UPDATE_TIME',
+        elapse: updateInfo.elapse,
+        updateId: updateInfo.updateId,
+    }
+}
+
 
