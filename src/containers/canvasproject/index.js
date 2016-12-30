@@ -38,8 +38,8 @@ class CanvasProject extends React.Component {
                         <li className="title"><Link to="/canvasproject/canvasseat">canvas seat</Link></li>
                     </ul>
                     <ul className="info">
-                        <li>load time:<span>{loadTime ? loadTime.toFixed(2) : 0}ms</span></li>
-                        <li>update time:<span>{updateTime ? updateTime.toFixed(2) : 0}ms</span></li>
+                        <li>load time:<span>{loadTime ? loadTime.toFixed(8) : 0}ms</span></li>
+                        <li>update time:<span>{updateTime ? updateTime.toFixed(8) : 0}ms</span></li>
                         <li>average update time:<span>{records.length ? (records.reduce((acc, time) => acc += time, 0) / records.length).toFixed(2) : 0}ms</span></li>
                     </ul>
                 </div>

@@ -30,9 +30,10 @@ class CanvasSeat extends React.Component {
         this.updateTime = performance.now()
 
         const {pageX, pageY} = e
+
         const canvasOffset = this.getOffset(this.canvas)
-        const pointX = pageX - canvasOffset.left
-        const pointY = pageY - canvasOffset.top
+        const pointX = pageX + canvasOffset.left
+        const pointY = pageY + canvasOffset.top
 
         const time1 = performance.now()
         const index = this.findSeat({pointX, pointY})
