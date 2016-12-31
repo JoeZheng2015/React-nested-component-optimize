@@ -8,6 +8,14 @@
     margin-top: 10px;
 }
 
+.CanvasProject .title a:visited {
+    color: black;
+}
+
+.CanvasProject .title.active a {
+    color: blue;
+}
+
 .Seats {
     overflow: hidden;
     margin: 0;

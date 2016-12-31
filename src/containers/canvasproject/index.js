@@ -3,6 +3,26 @@ import React from 'react'
 import {Link} from 'react-router'
 import connect from '../../utils/connect'
 import {canvasProject} from '../../selectors'
+import classnames from 'classnames'
+
+const Pages = [
+    {
+        pathname: '/canvasproject/singleconnect',
+        text: 'single connect'
+    },
+    {
+        pathname: '/canvasproject/multipleconnect',
+        text: 'multiple connect'
+    },
+    {
+        pathname: '/canvasproject/smartseat',
+        text: 'smart seat'
+    },
+    {
+        pathname: '/canvasproject/canvasseat',
+        text: 'canvas seat'
+    },
+]
 
 class CanvasProject extends React.Component {
     state = {
@@ -26,7 +46,7 @@ class CanvasProject extends React.Component {
         }
     }
     render() {
-        const {loadTime, updateTime} = this.props
+        const {loadTime, updateTime, location} = this.props
         const {records} = this.state
 
         return (
@@ -34,10 +54,16 @@ class CanvasProject extends React.Component {
                 <div className="header">
                     <dl className="titles">
                         <dt>点击链接可加载对应组件</dt>
-                        <dd className="title"><Link to="/canvasproject/singleconnect">single connect</Link></dd>
-                        <dd className="title"><Link to="/canvasproject/multipleconnect">multiple connect</Link></dd>
-                        <dd className="title"><Link to="/canvasproject/smartseat">smart seat</Link></dd>
-                        <dd className="title"><Link to="/canvasproject/canvasseat">canvas seat</Link></dd>
+                        {
+                            Pages.map(page => (
+                                <dd
+                                    key={page.text}
+                                    className={classnames('title', {active: page.pathname === location.pathname})}>
+                                    <Link to={page.pathname}>{page.text}</Link>
+                                </dd>
+                                )
+                            )
+                        }
                     </dl>
                     <dl className="infos">
                         <dt>组件性能</dt>
