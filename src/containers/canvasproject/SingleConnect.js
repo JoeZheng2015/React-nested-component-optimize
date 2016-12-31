@@ -47,9 +47,11 @@ class Seats extends React.Component {
 
     updateCallback = () => {
         const elapse = performance.now() - this.updateTime
+        const updateId = ++this.updateId
+
         this.props.actions.setUpdateTime({
             elapse,
-            updateId: ++this.updateId,
+            updateId,
         })
     }
 
@@ -57,7 +59,7 @@ class Seats extends React.Component {
         const {seats} = this.props
 
         return (
-            <ul className="Seats SingleConnect">
+            <ul className="Seats">
                 {
                     seats.map(seat => <Seat
                         key={seat.id}

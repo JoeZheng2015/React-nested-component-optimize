@@ -46,6 +46,10 @@ class Seats extends React.Component {
         })
     }
 
+    shouldComponentUpdate(nextProps) {
+        return this.props.seatIds.length !== nextProps.seatIds.length
+    }
+
     render() {
         const {seatIds} = this.props
 

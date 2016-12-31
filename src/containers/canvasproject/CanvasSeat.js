@@ -2,28 +2,107 @@ import React from 'react'
 import connect from '../../utils/connect'
 import {canvasSeatSelector} from '../../selectors'
 
-const defaultSettings = {
-    width: 20,
-    height: 20,
-    margin: 2,
-}
-
 class CanvasSeat extends React.Component {
+    static defaultProps = {
+        settings: {
+            width: 20,
+            height: 20,
+            margin: 2,
+        }
+    }
+
+    constructor(args) {
+        super(args)
+
+        this.seatHashByKey = {}
+        this.seatIndexHashById = {}
+        this.coordHashById = {}
+        this.updateId = 0
+    }
+
+    componentWillMount() {
+        this.begin = performance.now()
+    }
+
     render() {
         return <canvas ref="canvas" onClick={this.onCanvasClick}></canvas>
     }
+
     componentDidMount() {
-        const {seats, settings = {}} = this.props
+        this.initCanvas()
+
+        const elapse = performance.now() - this.begin
+        this.props.actions.setInitTime(elapse)
+    }
+
+    shouldComponentUpdate(nextProps) {
+        return nextProps.seats.length !== this.props.seats.length
+    }
+
+    componentWillUnmount() {
+        this.props.actions.resetSeat()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {selectedSeatIds} = this.props
+
+        if (selectedSeatIds !== nextProps.selectedSeatIds) {
+            const {seatIndexHashById} = this
+            const {seats} = nextProps
+
+            const changedSeatIds = nextProps.selectedSeatIds.length > selectedSeatIds.length ?
+                nextProps.selectedSeatIds.filter(id => selectedSeatIds.indexOf(id) === -1) :
+                selectedSeatIds.filter(id => nextProps.selectedSeatIds.indexOf(id) === -1)
+
+            changedSeatIds.forEach(id => {
+                const index = seatIndexHashById[id]
+                const seat = seats[index]
+                this.drawSeat(seat)
+            })
+
+            this.updateCallback()
+        }
+    }
+
+    updateCallback() {
+        const elapse = performance.now() - this.updateTime
+        this.props.actions.setUpdateTime({
+            elapse,
+            updateId: ++this.updateId,
+        })
+    }
+
+    initCanvas() {
         this.canvas = this.refs.canvas
         this.ctx = this.canvas.getContext('2d')
-        this.settings = {
-            ...defaultSettings,
-            settings,
-        }
-        this.seatsMap = []
-        this.seatCoordinate = {}
+        this.setCanvasSize()
+        this.draw()
+    }
 
-        this.draw(seats)
+    setCanvasSize() {
+        const {canvas, ctx} = this
+        const {seats, settings} = this.props
+        const {width, height, margin} = settings
+        const windowWidth = window.innerWidth
+
+        const totalWidth = width + margin
+        const totalHeight = height + margin
+
+        const columnNumber = Math.floor(windowWidth / totalWidth)
+        this.columnNumber = columnNumber
+        const rowNumber = Math.floor(seats.length / columnNumber) + 1
+
+        const canvasWidth = windowWidth
+        const canvasHeight = rowNumber * totalHeight
+
+        const devicePixelRatio = window.devicePixelRatio || 1
+
+        canvas.width = canvasWidth * devicePixelRatio
+        canvas.height = canvasHeight * devicePixelRatio
+        ctx.scale(devicePixelRatio, devicePixelRatio)
+
+        canvas.style.width = `${canvasWidth}px`
+        canvas.style.height = `${canvasHeight}px`
     }
 
     onCanvasClick = e => {
@@ -35,53 +114,23 @@ class CanvasSeat extends React.Component {
         const pointX = pageX + canvasOffset.left
         const pointY = pageY + canvasOffset.top
 
-        const time1 = performance.now()
-        const index = this.findSeat({pointX, pointY})
-        console.log('findSeat', performance.now() - time1)
+        const seat = this.lookupSeat({pointX, pointY})
 
-        const time2 = performance.now()
-        const hitedSeat = this.lookSeat({pointX, pointY})
-        console.log('lookSeat', performance.now() - time2)
-
-        if (hitedSeat) {
-            this.props.handleClick(hitedSeat.id)
-                .then(isLockSeat => {
-                    this.updateSeat(hitedSeat, isLockSeat)
-                    this.props.updateCallback(performance.now())
-                })
+        if (seat) {
+            this.props.actions.selectSeat(seat.id)
         }
     }
 
-    findSeat({pointX, pointY}) {
-        const {seatsMap} = this
+    lookupSeat({pointX, pointY}) {
+        const {seatHashByKey} = this
+        const {width, height, margin} = this.props.settings
 
-        for (let i = 0; i < seatsMap.length; i++) {
-            const seatCoordinate = seatsMap[i]
-            const {x, y, width, height, margin} = seatCoordinate
+        const row = Math.floor(pointY / (height + margin)) + 1
+        const column = Math.floor(pointX / (width + margin)) + 1
 
-            if (hitRole({pointX, pointY, x, y, width, height, margin})) {
-                return seatCoordinate
-            }
-        }
-        return null
-
-        function hitRole({pointX, pointY, x, y, width, height, margin}) {
-            return pointX >= x &&
-                pointX <= x + width + margin &&
-                pointY >= y &&
-                pointY <= y + height + margin
-        }
+        return seatHashByKey[`${row},${column}`]
     }
 
-    lookSeat({pointX, pointY}) {
-        const {settings, seatCoordinate} = this
-        const {width, height, margin} = settings
-
-        pointX = Math.floor(pointX / (width + margin))
-        pointY = Math.floor(pointY / (height + margin))
-
-        return seatCoordinate[`${pointX},${pointY}`]
-    }
     getOffset(el) {
         let top = -el.offsetTop
         let left = -el.offsetLeft
@@ -96,107 +145,40 @@ class CanvasSeat extends React.Component {
             left,
         }
     }
-    draw(seats) {
-        this.setCanvasSize(seats)
+
+    draw() {
         const {columnNumber} = this
-        const {width, height, margin} = this.settings
+        const {seats} = this.props
 
         for (let i = 0; i < seats.length; i++) {
             const row = Math.floor(i / columnNumber) + 1
             const column = (i % columnNumber) + 1
-            const {x, y} = this.calculateCoordinate(row, column)
-            const seat = {
-                x,
-                y,
-                ...this.settings,
-                ...seats[i],
-            }
-            this.drawSeat({
-                ...seat,
-                color: seat.selected ? seat.selectedColor : seat.originColor,
-            })
-            this.seatsMap.push(seat)
-            const pointX = Math.floor(x / (width + margin))
-            const pointY = Math.floor(y / (height + margin))
-            this.seatCoordinate[`${pointX},${pointY}`] = seat
+            const seat = seats[i]
+
+            const hashKey = `${row},${column}`
+            // 根据key可以找到seat
+            this.seatHashByKey[hashKey] = seat
+            // 根据id可以找到seat
+            this.seatIndexHashById[seat.id] = i
+            // 根据id可以找到坐标
+            this.coordHashById[seat.id] = {row, column}
+
+            this.drawSeat(seat)
         }
     }
-    drawSeat({x, y, width, height, color}) {
-        const {ctx} = this
 
-        ctx.fillStyle = color
-        ctx.fillRect(x, y, width, height)
-    }
-    updateSeat(seat, isLockSeat) {
-        const {ctx} = this
-        const {x, y, width, height, selectedColor, originColor} = seat
-
-        ctx.clearRect(x, y, width, height)
-        this.drawSeat({
-            ...seat,
-            color: isLockSeat ? selectedColor : originColor,
-        })
-    }
-    calculateCoordinate(row, column) {
-        const {width, height, margin} = this.settings
+    drawSeat(seat) {
+        const {ctx, coordHashById} = this
+        const {id, selected, selectedColor, originColor} = seat
+        const {row, column} = coordHashById[id]
+        const {width, height, margin} = this.props.settings
 
         const x = (column - 1) * (width + margin)
         const y = (row - 1) * (height + margin)
 
-        return {x,y}
-    }
-    setCanvasSize(seats) {
-        const {canvas} = this
-        const {width, height, margin} = this.settings
-        const windowWidth = window.innerWidth
-
-        const totalWidth = width + margin
-        const totalHeight = height + margin
-
-        const columnNumber = Math.floor(windowWidth / totalWidth)
-        this.columnNumber = columnNumber
-        const rowNumber = Math.floor(seats.length / columnNumber) + 1
-
-        canvas.width = windowWidth
-        canvas.height = rowNumber * totalHeight
+        ctx.fillStyle = selected ? selectedColor : originColor
+        ctx.fillRect(x, y, width, height)
     }
 }
 
-
-class CanvasSeatContainer extends React.Component {
-    updateId = 0
-    shouldComponentUpdate(nextProps) {
-        return nextProps.seats.length !== this.props.seats.length
-    }
-
-    componentWillMount() {
-        this.begin = performance.now()
-    }
-
-    componentDidMount() {
-        const elapse = performance.now() - this.begin
-        this.props.actions.setInitTime(elapse)
-    }
-
-    componentWillUnmount() {
-        this.props.actions.resetSeat()
-    }
-
-    updateCallback = (updateTime) => {
-        const elapse = performance.now() - updateTime
-        this.props.actions.setUpdateTime({
-            elapse,
-            updateId: ++this.updateId,
-        })
-    }
-
-    render() {
-        const {seats} = this.props
-
-        return <CanvasSeat
-            seats={seats}
-            updateCallback={this.updateCallback}
-            handleClick={this.props.actions.selectSeat} />
-    }
-}
-export default connect(canvasSeatSelector)(CanvasSeatContainer)
+export default connect(canvasSeatSelector)(CanvasSeat)
