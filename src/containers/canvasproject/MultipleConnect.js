@@ -69,4 +69,4 @@ class Seats extends React.Component {
     }
 }
 
-export default connect(multipleConnectSelector)(Seats)
+export default connect(state => multipleConnectSelector(state))(Seats)

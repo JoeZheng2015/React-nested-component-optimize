@@ -74,5 +74,5 @@ class Seats extends React.Component {
     }
 }
 
-export default connect(singleConnectSelector)(Seats)
+export default connect(state => singleConnectSelector(state))(Seats)
 

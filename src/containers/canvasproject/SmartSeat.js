@@ -84,5 +84,5 @@ class Seats extends React.Component {
     }
 }
 
-export default connect(smartSeatSelector)(Seats)
+export default connect(state => smartSeatSelector(state))(Seats)
 

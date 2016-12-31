@@ -181,4 +181,4 @@ class CanvasSeat extends React.Component {
     }
 }
 
-export default connect(canvasSeatSelector)(CanvasSeat)
+export default connect(state => canvasSeatSelector(state))(CanvasSeat)
