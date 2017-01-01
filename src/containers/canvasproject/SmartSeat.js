@@ -1,6 +1,6 @@
 import React from 'react'
 import connect from '../../utils/connect'
-import {smartSeatSelector} from '../../selectors'
+import {smartSeatSelector} from '../../selectors/canvasproject'
 
 class Seat extends React.Component {
     constructor(args) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import connect from '../../utils/connect'
-import {singleConnectSelector} from '../../selectors'
+import {singleConnectSelector} from '../../selectors/canvasproject'
 
 class Seat extends React.Component {
     componentDidUpdate() {

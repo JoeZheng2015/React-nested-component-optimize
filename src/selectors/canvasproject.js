@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect'
 
-const getSeats = state => state.seats
-const getSeatIds = state => state.seatIds
-const getSelectedSeatIds = state => state.selectedSeatIds
+const getSeats = state => state.canvasproject.seats
+const getSeatIds = state => state.canvasproject.seatIds
+const getSelectedSeatIds = state => state.canvasproject.selectedSeatIds
 
 export const singleConnectSelector = createSelector(
     getSeats,
@@ -25,7 +25,7 @@ export const multipleConnectSelector = createSelector(
 )
 
 const getSeat = (state, id) => {
-    return state.seats[id]
+    return state.canvasproject.seats[id]
 }
 
 const makeGetSeat = () => {
@@ -69,9 +69,9 @@ export const canvasSeatSelector = createSelector(
 )
 
 export const canvasProject = createSelector(
-    state => state.loadTime,
-    state => state.updateTime,
-    state => state.updateId,
+    state => state.canvasproject.loadTime,
+    state => state.canvasproject.updateTime,
+    state => state.canvasproject.updateId,
     (loadTime, updateTime, updateId) => {
         return {
             loadTime,

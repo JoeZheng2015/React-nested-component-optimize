@@ -1,6 +1,6 @@
 import React from 'react'
 import connect from '../../utils/connect'
-import {multipleConnectSelector, makeMapStateToProps} from '../../selectors'
+import {multipleConnectSelector, makeMapStateToProps} from '../../selectors/canvasproject'
 
 class PureSeat extends React.Component {
     componentDidUpdate() {

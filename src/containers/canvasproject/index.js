@@ -2,7 +2,7 @@ import './style.css'
 import React from 'react'
 import {Link} from 'react-router'
 import connect from '../../utils/connect'
-import {canvasProject} from '../../selectors'
+import {canvasProject} from '../../selectors/canvasproject'
 import classnames from 'classnames'
 
 const Pages = [

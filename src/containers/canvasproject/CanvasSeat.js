@@ -1,6 +1,6 @@
 import React from 'react'
 import connect from '../../utils/connect'
-import {canvasSeatSelector} from '../../selectors'
+import {canvasSeatSelector} from '../../selectors/canvasproject'
 
 class CanvasSeat extends React.Component {
     static defaultProps = {
