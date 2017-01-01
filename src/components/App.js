@@ -4,12 +4,10 @@ import {Link} from 'react-router'
 class App extends Component {
     render() {
         return (
-            <div>
-                <header>Learning React's demo</header>
-                <ul>
-                    <li><Link to="/canvasproject">canvas project</Link></li>
-                </ul>
-            </div>
+            <dl className="Demo">
+                <dt className="Demo__Title">Learning React's demo</dt>
+                <dd className="Demo__Link"><Link to="/canvasproject">canvas project</Link></dd>
+            </dl>
         );
     }
 }

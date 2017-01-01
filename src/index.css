@@ -2,10 +2,23 @@
     margin: 0;
     padding: 0; 
 }
+
 body {
   font-family: sans-serif;
 }
 
 #root {
     overflow: hidden;
+}
+
+.Demo {
+    margin: 20px;
+}
+
+.Demo .Demo__Title {
+    font-size: 20px;
+}
+
+.Demo .Demo__Link {
+    margin-top: 10px;
 }
