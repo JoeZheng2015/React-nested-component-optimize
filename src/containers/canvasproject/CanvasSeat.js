@@ -17,6 +17,7 @@ class CanvasSeat extends React.Component {
         this.seatHashByKey = {}
         this.seatIndexHashById = {}
         this.coordHashById = {}
+        this.canvasOffset = undefined
         this.updateId = 0
     }
 
@@ -110,7 +111,7 @@ class CanvasSeat extends React.Component {
 
         const {pageX, pageY} = e
 
-        const canvasOffset = this.getOffset(this.canvas)
+        const canvasOffset = this.canvasOffset ? this.canvasOffset : (this.canvasOffset = this.getOffset(this.canvas))
         const pointX = pageX + canvasOffset.left
         const pointY = pageY + canvasOffset.top
 
@@ -125,8 +126,8 @@ class CanvasSeat extends React.Component {
         const {seatHashByKey} = this
         const {width, height, margin} = this.props.settings
 
-        const row = Math.floor(pointY / (height + margin)) + 1
-        const column = Math.floor(pointX / (width + margin)) + 1
+        const row = ~~(pointY / (height + margin)) + 1
+        const column = ~~(pointX / (width + margin)) + 1
 
         return seatHashByKey[`${row},${column}`]
     }
