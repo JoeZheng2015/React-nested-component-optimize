@@ -1,0 +1,228 @@
+import './style.css'
+import React, { Component } from 'react'
+
+export default class PassiveEvent extends Component {
+    render() {
+        return (
+            <div className="PassiveEvent">
+                <ul className="PassiveEvent__Items" ref="Items">
+                    <li className="PassiveEvent__Item">item001</li>
+                    <li className="PassiveEvent__Item">item002</li>
+                    <li className="PassiveEvent__Item">item003</li>
+                    <li className="PassiveEvent__Item">item004</li>
+                    <li className="PassiveEvent__Item">item005</li>
+                    <li className="PassiveEvent__Item">item006</li>
+                    <li className="PassiveEvent__Item">item007</li>
+                    <li className="PassiveEvent__Item">item008</li>
+                    <li className="PassiveEvent__Item">item009</li>
+                    <li className="PassiveEvent__Item">item010</li>
+                    <li className="PassiveEvent__Item">item011</li>
+                    <li className="PassiveEvent__Item">item012</li>
+                    <li className="PassiveEvent__Item">item013</li>
+                    <li className="PassiveEvent__Item">item014</li>
+                    <li className="PassiveEvent__Item">item015</li>
+                    <li className="PassiveEvent__Item">item016</li>
+                    <li className="PassiveEvent__Item">item017</li>
+                    <li className="PassiveEvent__Item">item018</li>
+                    <li className="PassiveEvent__Item">item019</li>
+                    <li className="PassiveEvent__Item">item020</li>
+                    <li className="PassiveEvent__Item">item021</li>
+                    <li className="PassiveEvent__Item">item022</li>
+                    <li className="PassiveEvent__Item">item023</li>
+                    <li className="PassiveEvent__Item">item024</li>
+                    <li className="PassiveEvent__Item">item025</li>
+                    <li className="PassiveEvent__Item">item026</li>
+                    <li className="PassiveEvent__Item">item027</li>
+                    <li className="PassiveEvent__Item">item028</li>
+                    <li className="PassiveEvent__Item">item029</li>
+                    <li className="PassiveEvent__Item">item030</li>
+                    <li className="PassiveEvent__Item">item031</li>
+                    <li className="PassiveEvent__Item">item032</li>
+                    <li className="PassiveEvent__Item">item033</li>
+                    <li className="PassiveEvent__Item">item034</li>
+                    <li className="PassiveEvent__Item">item035</li>
+                    <li className="PassiveEvent__Item">item036</li>
+                    <li className="PassiveEvent__Item">item037</li>
+                    <li className="PassiveEvent__Item">item038</li>
+                    <li className="PassiveEvent__Item">item039</li>
+                    <li className="PassiveEvent__Item">item040</li>
+                    <li className="PassiveEvent__Item">item041</li>
+                    <li className="PassiveEvent__Item">item042</li>
+                    <li className="PassiveEvent__Item">item043</li>
+                    <li className="PassiveEvent__Item">item044</li>
+                    <li className="PassiveEvent__Item">item045</li>
+                    <li className="PassiveEvent__Item">item046</li>
+                    <li className="PassiveEvent__Item">item047</li>
+                    <li className="PassiveEvent__Item">item048</li>
+                    <li className="PassiveEvent__Item">item049</li>
+                    <li className="PassiveEvent__Item">item050</li>
+                    <li className="PassiveEvent__Item">item051</li>
+                    <li className="PassiveEvent__Item">item052</li>
+                    <li className="PassiveEvent__Item">item053</li>
+                    <li className="PassiveEvent__Item">item054</li>
+                    <li className="PassiveEvent__Item">item055</li>
+                    <li className="PassiveEvent__Item">item056</li>
+                    <li className="PassiveEvent__Item">item057</li>
+                    <li className="PassiveEvent__Item">item058</li>
+                    <li className="PassiveEvent__Item">item059</li>
+                    <li className="PassiveEvent__Item">item060</li>
+                    <li className="PassiveEvent__Item">item061</li>
+                    <li className="PassiveEvent__Item">item062</li>
+                    <li className="PassiveEvent__Item">item063</li>
+                    <li className="PassiveEvent__Item">item064</li>
+                    <li className="PassiveEvent__Item">item065</li>
+                    <li className="PassiveEvent__Item">item066</li>
+                    <li className="PassiveEvent__Item">item067</li>
+                    <li className="PassiveEvent__Item">item068</li>
+                    <li className="PassiveEvent__Item">item069</li>
+                    <li className="PassiveEvent__Item">item070</li>
+                    <li className="PassiveEvent__Item">item071</li>
+                    <li className="PassiveEvent__Item">item072</li>
+                    <li className="PassiveEvent__Item">item073</li>
+                    <li className="PassiveEvent__Item">item074</li>
+                    <li className="PassiveEvent__Item">item075</li>
+                    <li className="PassiveEvent__Item">item076</li>
+                    <li className="PassiveEvent__Item">item077</li>
+                    <li className="PassiveEvent__Item">item078</li>
+                    <li className="PassiveEvent__Item">item079</li>
+                    <li className="PassiveEvent__Item">item080</li>
+                    <li className="PassiveEvent__Item">item081</li>
+                    <li className="PassiveEvent__Item">item082</li>
+                    <li className="PassiveEvent__Item">item083</li>
+                    <li className="PassiveEvent__Item">item084</li>
+                    <li className="PassiveEvent__Item">item085</li>
+                    <li className="PassiveEvent__Item">item086</li>
+                    <li className="PassiveEvent__Item">item087</li>
+                    <li className="PassiveEvent__Item">item088</li>
+                    <li className="PassiveEvent__Item">item089</li>
+                    <li className="PassiveEvent__Item">item090</li>
+                    <li className="PassiveEvent__Item">item091</li>
+                    <li className="PassiveEvent__Item">item092</li>
+                    <li className="PassiveEvent__Item">item093</li>
+                    <li className="PassiveEvent__Item">item094</li>
+                    <li className="PassiveEvent__Item">item095</li>
+                    <li className="PassiveEvent__Item">item096</li>
+                    <li className="PassiveEvent__Item">item097</li>
+                    <li className="PassiveEvent__Item">item098</li>
+                    <li className="PassiveEvent__Item">item099</li>
+                    <li className="PassiveEvent__Item">item100</li>
+                    <li className="PassiveEvent__Item">item101</li>
+                    <li className="PassiveEvent__Item">item102</li>
+                    <li className="PassiveEvent__Item">item103</li>
+                    <li className="PassiveEvent__Item">item104</li>
+                    <li className="PassiveEvent__Item">item105</li>
+                    <li className="PassiveEvent__Item">item106</li>
+                    <li className="PassiveEvent__Item">item107</li>
+                    <li className="PassiveEvent__Item">item108</li>
+                    <li className="PassiveEvent__Item">item109</li>
+                    <li className="PassiveEvent__Item">item110</li>
+                    <li className="PassiveEvent__Item">item111</li>
+                    <li className="PassiveEvent__Item">item112</li>
+                    <li className="PassiveEvent__Item">item113</li>
+                    <li className="PassiveEvent__Item">item114</li>
+                    <li className="PassiveEvent__Item">item115</li>
+                    <li className="PassiveEvent__Item">item116</li>
+                    <li className="PassiveEvent__Item">item117</li>
+                    <li className="PassiveEvent__Item">item118</li>
+                    <li className="PassiveEvent__Item">item119</li>
+                    <li className="PassiveEvent__Item">item120</li>
+                    <li className="PassiveEvent__Item">item121</li>
+                    <li className="PassiveEvent__Item">item122</li>
+                    <li className="PassiveEvent__Item">item123</li>
+                    <li className="PassiveEvent__Item">item124</li>
+                    <li className="PassiveEvent__Item">item125</li>
+                    <li className="PassiveEvent__Item">item126</li>
+                    <li className="PassiveEvent__Item">item127</li>
+                    <li className="PassiveEvent__Item">item128</li>
+                    <li className="PassiveEvent__Item">item129</li>
+                    <li className="PassiveEvent__Item">item130</li>
+                    <li className="PassiveEvent__Item">item131</li>
+                    <li className="PassiveEvent__Item">item132</li>
+                    <li className="PassiveEvent__Item">item133</li>
+                    <li className="PassiveEvent__Item">item134</li>
+                    <li className="PassiveEvent__Item">item135</li>
+                    <li className="PassiveEvent__Item">item136</li>
+                    <li className="PassiveEvent__Item">item137</li>
+                    <li className="PassiveEvent__Item">item138</li>
+                    <li className="PassiveEvent__Item">item139</li>
+                    <li className="PassiveEvent__Item">item140</li>
+                    <li className="PassiveEvent__Item">item141</li>
+                    <li className="PassiveEvent__Item">item142</li>
+                    <li className="PassiveEvent__Item">item143</li>
+                    <li className="PassiveEvent__Item">item144</li>
+                    <li className="PassiveEvent__Item">item145</li>
+                    <li className="PassiveEvent__Item">item146</li>
+                    <li className="PassiveEvent__Item">item147</li>
+                    <li className="PassiveEvent__Item">item148</li>
+                    <li className="PassiveEvent__Item">item149</li>
+                    <li className="PassiveEvent__Item">item150</li>
+                    <li className="PassiveEvent__Item">item151</li>
+                    <li className="PassiveEvent__Item">item152</li>
+                    <li className="PassiveEvent__Item">item153</li>
+                    <li className="PassiveEvent__Item">item154</li>
+                    <li className="PassiveEvent__Item">item155</li>
+                    <li className="PassiveEvent__Item">item156</li>
+                    <li className="PassiveEvent__Item">item157</li>
+                    <li className="PassiveEvent__Item">item158</li>
+                    <li className="PassiveEvent__Item">item159</li>
+                    <li className="PassiveEvent__Item">item160</li>
+                    <li className="PassiveEvent__Item">item161</li>
+                    <li className="PassiveEvent__Item">item162</li>
+                    <li className="PassiveEvent__Item">item163</li>
+                    <li className="PassiveEvent__Item">item164</li>
+                    <li className="PassiveEvent__Item">item165</li>
+                    <li className="PassiveEvent__Item">item166</li>
+                    <li className="PassiveEvent__Item">item167</li>
+                    <li className="PassiveEvent__Item">item168</li>
+                    <li className="PassiveEvent__Item">item169</li>
+                    <li className="PassiveEvent__Item">item170</li>
+                    <li className="PassiveEvent__Item">item171</li>
+                    <li className="PassiveEvent__Item">item172</li>
+                    <li className="PassiveEvent__Item">item173</li>
+                    <li className="PassiveEvent__Item">item174</li>
+                    <li className="PassiveEvent__Item">item175</li>
+                    <li className="PassiveEvent__Item">item176</li>
+                    <li className="PassiveEvent__Item">item177</li>
+                    <li className="PassiveEvent__Item">item178</li>
+                    <li className="PassiveEvent__Item">item179</li>
+                    <li className="PassiveEvent__Item">item180</li>
+                    <li className="PassiveEvent__Item">item181</li>
+                    <li className="PassiveEvent__Item">item182</li>
+                    <li className="PassiveEvent__Item">item183</li>
+                    <li className="PassiveEvent__Item">item184</li>
+                    <li className="PassiveEvent__Item">item185</li>
+                    <li className="PassiveEvent__Item">item186</li>
+                    <li className="PassiveEvent__Item">item187</li>
+                    <li className="PassiveEvent__Item">item188</li>
+                    <li className="PassiveEvent__Item">item189</li>
+                    <li className="PassiveEvent__Item">item190</li>
+                    <li className="PassiveEvent__Item">item191</li>
+                    <li className="PassiveEvent__Item">item192</li>
+                    <li className="PassiveEvent__Item">item193</li>
+                    <li className="PassiveEvent__Item">item194</li>
+                    <li className="PassiveEvent__Item">item195</li>
+                    <li className="PassiveEvent__Item">item196</li>
+                    <li className="PassiveEvent__Item">item197</li>
+                    <li className="PassiveEvent__Item">item198</li>
+                    <li className="PassiveEvent__Item">item199</li>
+                    <li className="PassiveEvent__Item">item200</li>
+                </ul>
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        this.initEvent()
+    }
+
+    initEvent() {
+        if (this.refs.Items) {
+            const Items = this.refs.Items
+
+            Items.addEventListener('scroll', (e) => {
+                console.log('---')
+                e.preventDefault()
+            }, false)
+        }
+    }
+}

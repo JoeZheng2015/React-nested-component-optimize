@@ -10,6 +10,7 @@ import SingleConnect from './containers/canvasproject/SingleConnect'
 import MultipleConnect from './containers/canvasproject/MultipleConnect'
 import SmartSeat from './containers/canvasproject/SmartSeat'
 import CanvasSeat from './containers/canvasproject/CanvasSeat'
+import PassiveEvent from './containers/PassiveEvent'
 
 const store = configureStore()
 
@@ -23,6 +24,7 @@ ReactDOM.render(
                 <Route path="smartseat" component={SmartSeat}></Route>
                 <Route path="canvasseat" component={CanvasSeat}></Route>
             </Route>
+            <Route path="/passiveevent" component={PassiveEvent}></Route>
         </Router>
     </Provider>,
     document.getElementById('root')

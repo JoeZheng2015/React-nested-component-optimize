@@ -1,0 +1,9 @@
+.PassiveEvent__Items {
+    height: 100vh;
+    overflow: scroll;
+}
+
+.PassiveEvent__Item {
+    padding: 10px;
+    border-top: 1px solid black;
+}
