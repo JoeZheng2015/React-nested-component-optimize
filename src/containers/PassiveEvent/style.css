@@ -1,9 +1,24 @@
-.PassiveEvent__Items {
+.PassiveEvent {
+    display: flex;
+    flex-direction: column;
     height: 100vh;
+    overflow: hidden;
+}
+
+.PassiveEvent__Panels {
+    border-bottom: 1px solid black;
+    padding: 10px 0 5px 20px;
+}
+
+.PassiveEvent__Panel {
+    padding: 5px 0;
+}
+
+.PassiveEvent__Items {
+    flex: 1;
     overflow: scroll;
 }
 
 .PassiveEvent__Item {
     padding: 10px;
-    border-top: 1px solid black;
 }
