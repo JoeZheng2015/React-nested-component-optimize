@@ -1,10 +1,13 @@
 import './style.css'
 import React, { Component } from 'react'
 import block from 'block.js'
+import detectPassiveEvents from 'detect-passive-events';
 
 export default class PassiveEvent extends Component {
     constructor(args) {
         super(args)
+
+        this.checkPassiveEvent()
 
         this.emptyListener = false
         this.delayListener = false
@@ -14,6 +17,12 @@ export default class PassiveEvent extends Component {
 
         this.addEvent = this.addRemoveEvent.bind(this, 'addEventListener')
         this.removeEvent = this.addRemoveEvent.bind(this, 'removeEventListener')
+    }
+
+    checkPassiveEvent() {
+        if (!detectPassiveEvents.hasSupport) {
+            alert('您的浏览器不支持 passive event listeners，请使用 Chrome 51 或更高版本的浏览器')
+        }
     }
 
     render() {
@@ -273,8 +282,8 @@ export default class PassiveEvent extends Component {
             this.items[action]('wheel', this.delayHanlder, false)
         }
         else if (listenerType === 'passiveListener') {
-            this.items[action]('touchstart', this.passiveHanler, {passive: true})
-            this.items[action]('wheel', this.passiveHanler, {passive: true})
+            this.items[action]('touchstart', this.passiveHanler, detectPassiveEvents.hasSupport ? {capture: false, passive: true} : false)
+            this.items[action]('wheel', this.passiveHanler, detectPassiveEvents.hasSupport ? {capture: false, passive: true} : false)
         }
     }
 
