@@ -1,7 +1,7 @@
 import './style.css'
 import React, { Component } from 'react'
 import block from 'block.js'
-import detectPassiveEvents from 'detect-passive-events';
+import detectPassiveEvents from 'detect-passive-events'
 
 export default class PassiveEvent extends Component {
     constructor(args) {
