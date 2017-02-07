@@ -5,7 +5,7 @@ class App extends Component {
     render() {
         return (
             <dl className="Demo">
-                <dt className="Demo__Title">Learning React's demo</dt>
+                <dt className="Demo__Title">Learning React's demos</dt>
                 <dd className="Demo__Link"><Link to="/canvasproject">canvas project</Link></dd>
                 <dd className="Demo__Link"><Link to="/passiveevent">passive event</Link></dd>
             </dl>
