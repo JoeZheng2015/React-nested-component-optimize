@@ -11,6 +11,7 @@ import MultipleConnect from './containers/canvasproject/MultipleConnect'
 import SmartSeat from './containers/canvasproject/SmartSeat'
 import CanvasSeat from './containers/canvasproject/CanvasSeat'
 import PassiveEvent from './containers/PassiveEvent'
+import IntersectionObserver from './containers/IntersectionObserver'
 
 const store = configureStore()
 
@@ -25,6 +26,7 @@ ReactDOM.render(
                 <Route path="canvasseat" component={CanvasSeat}></Route>
             </Route>
             <Route path="/passiveevent" component={PassiveEvent}></Route>
+            <Route path="/intersection_observerer" component={IntersectionObserver}></Route>
         </Router>
     </Provider>,
     document.getElementById('root')

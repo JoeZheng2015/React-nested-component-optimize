@@ -1,0 +1,17 @@
+.IntersectionObserver {
+    height: 100vh;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
+}
+.IntersectionObserver__item {
+    height: 10vh;
+    line-height: 10vh;
+    width: 100%;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+.IntersectionObserver__observer {
+    height: 5vh;
+    line-height: 5vh;
+    text-align: center;
+}
