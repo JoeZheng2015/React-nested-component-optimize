@@ -35,20 +35,17 @@ export default class Intersection extends Component {
             const observer = this.refs.observer
 
             if (IntersectionObserver) {
-                const io = new window.IntersectionObserver(
-                    (entries) => {
-                        const {intersectionRatio} = entries[0]
-                        const isVisible = intersectionRatio > 0
-                        if (isVisible) {
-                            this.setState({
-                                page: this.state.page + 1,
-                            })
-                        }
-                    },
-                    {
-                        threshold: [0],
+                const io = new IntersectionObserver((entries) => {
+                    const {intersectionRatio} = entries[0]
+                    const isVisible = intersectionRatio > 0
+                    if (isVisible) {
+                        this.setState({
+                            page: this.state.page + 1,
+                        })
                     }
-                )
+                }, {
+                    threshold: [0.000001],
+                })
                 io.observe(observer)
             }
             else {
