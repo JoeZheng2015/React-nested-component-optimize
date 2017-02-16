@@ -1,7 +1,7 @@
 import './style.css'
 import React, { Component } from 'react'
 
-export default class IntersectionObserver extends Component {
+export default class Intersection extends Component {
     constructor(args) {
         super(args)
 
@@ -34,7 +34,7 @@ export default class IntersectionObserver extends Component {
         if (this.refs.observer) {
             const observer = this.refs.observer
 
-            if (window.IntersectionObserver) {
+            if (IntersectionObserver) {
                 const io = new window.IntersectionObserver(
                     (entries) => {
                         const {intersectionRatio} = entries[0]
