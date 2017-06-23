@@ -9,6 +9,7 @@ class App extends Component {
                 <dd className="Demo__Link"><Link to="/canvasproject">canvas project</Link></dd>
                 <dd className="Demo__Link"><Link to="/passiveevent">Passive Event</Link></dd>
                 <dd className="Demo__Link"><Link to="/intersection_observerer">Intersection Observerer</Link></dd>
+                <dd className="Demo__Link"><Link to="/why_redux">Why need Redux</Link></dd>
             </dl>
         );
     }

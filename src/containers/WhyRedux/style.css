@@ -1,0 +1,12 @@
+.Shop {
+    padding: 20px;
+}
+.Shop__btn {
+    width: 20px;
+    height: 18px;
+    line-height: 18px;
+    margin-right: 5px;
+}
+.Shop__btn:first-child {
+    margin-left: 5px;
+}

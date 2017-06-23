@@ -12,6 +12,7 @@ import SmartSeat from './containers/canvasproject/SmartSeat'
 import CanvasSeat from './containers/canvasproject/CanvasSeat'
 import PassiveEvent from './containers/PassiveEvent'
 import IntersectionObserver from './containers/IntersectionObserver'
+import WhyRedux from './containers/WhyRedux'
 
 const store = configureStore()
 
@@ -27,6 +28,7 @@ ReactDOM.render(
             </Route>
             <Route path="/passiveevent" component={PassiveEvent}></Route>
             <Route path="/intersection_observerer" component={IntersectionObserver}></Route>
+            <Route path="/why_redux" component={WhyRedux}></Route>
         </Router>
     </Provider>,
     document.getElementById('root')
