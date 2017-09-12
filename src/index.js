@@ -13,6 +13,7 @@ import CanvasSeat from './containers/canvasproject/CanvasSeat'
 import PassiveEvent from './containers/PassiveEvent'
 import IntersectionObserver from './containers/IntersectionObserver'
 import WhyRedux from './containers/WhyRedux'
+import Diff from './containers/Diff'
 
 const store = configureStore()
 
@@ -29,6 +30,7 @@ ReactDOM.render(
             <Route path="/passiveevent" component={PassiveEvent}></Route>
             <Route path="/intersection_observerer" component={IntersectionObserver}></Route>
             <Route path="/why_redux" component={WhyRedux}></Route>
+            <Route path="/diff_algorithm" component={Diff}></Route>
         </Router>
     </Provider>,
     document.getElementById('root')
